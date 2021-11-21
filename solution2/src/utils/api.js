@@ -13,7 +13,7 @@ export const fetchList = async ({ route, queryParams = {} }) => {
 
   const { sortBy, sortOrder, ...filters } = queryParams
 
-  const filteredData = filterArray({ array: data, filters })
+  const filteredData = filterArray({ array: data, filters }).map(({ hasMorePages, ...item }) => item)
 
   return arraySort({ array: filteredData, sortBy, sortOrder })
 }

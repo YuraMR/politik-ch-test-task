@@ -7,10 +7,10 @@ export const filterArray = ({ array = [], filters = {} }) => {
     return (
       array.filter((item) => (
         filtersEntries.reduce((acc, [key, value]) => {
-          const itemValue = String(item[key])
+          const itemValue = String(item[key]).toLowerCase()
 
           return (
-            acc || (itemValue && itemValue.includes(String(value)))
+            acc || (itemValue && itemValue.includes(String(value).toLowerCase()))
           )
         }, false)
       ))
