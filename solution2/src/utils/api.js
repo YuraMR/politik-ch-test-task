@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { PARLIAMENT_API_CONFIG, ROUTES } from "../constants/api";
+import { PARLIAMENT_API_CONFIG } from "../constants/api";
 import {arraySort, filterArray} from "./array";
 
 export const fetchList = async ({ route, queryParams = {} }) => {

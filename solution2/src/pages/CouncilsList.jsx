@@ -6,14 +6,19 @@ import {
   selectCouncilsList,
   selectCouncilsLoading,
 } from "../store/slices/councilsSlice";
+import DataTable from "../components/data-table/DataTable";
 
 const CouncilsList = () => {
   const dispatch = useDispatch()
   const councilsList = useSelector(selectCouncilsList)
   const councilsLoading = useSelector(selectCouncilsLoading)
 
+  const updateListByQuery = (query) => {
+    dispatch(fetchCouncilsList(query))
+  }
+
   useEffect(() => {
-    dispatch(fetchCouncilsList({ sortBy: 'name', sortOrder: 'desc' }))
+    updateListByQuery({ sortBy: 'name', sortOrder: 'desc' })
   }, [dispatch])
 
   return (
@@ -21,13 +26,10 @@ const CouncilsList = () => {
       {councilsLoading
         ? 'Loading...'
         : (
-          councilsList.map((item) => (
-            <div key={item.id}>
-              {Object.entries(item).map(([key, value]) => (
-                <span key={key}>{key}: {value}&nbsp;</span>
-              ))}
-            </div>
-          ))
+          <DataTable
+            data={councilsList}
+            updateListByQuery={updateListByQuery}
+          />
         )
       }
     </div>

@@ -3,14 +3,19 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {fetchAffairsList} from "../store/slices/affairsSlice";
 import {selectAffairsList, selectAffairsLoading} from "../store/slices/affairsSlice";
+import DataTable from "../components/data-table/DataTable";
 
 const AffairsList = () => {
   const dispatch = useDispatch()
   const affairsList = useSelector(selectAffairsList)
   const affairsLoading = useSelector(selectAffairsLoading)
 
+  const updateListByQuery = (query) => {
+    dispatch(fetchAffairsList(query))
+  }
+
   useEffect(() => {
-    dispatch(fetchAffairsList({ sortBy: 'updated' }))
+    updateListByQuery({ sortBy: 'updated' })
   }, [dispatch])
 
   return (
@@ -18,13 +23,10 @@ const AffairsList = () => {
       {affairsLoading
         ? 'Loading...'
         : (
-          affairsList.map((item) => (
-            <div key={item.id}>
-              {Object.entries(item).map(([key, value]) => (
-                <span key={key}>{key}: {value}&nbsp;</span>
-              ))}
-            </div>
-          ))
+          <DataTable
+            data={affairsList}
+            updateListByQuery={updateListByQuery}
+          />
         )
       }
     </div>
