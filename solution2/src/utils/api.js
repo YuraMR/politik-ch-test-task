@@ -1,11 +1,19 @@
 import axios from "axios";
 
-import { PARLIAMENT_API_CONFIG, PARLIAMENT_API_SCOPES } from "../constants/api";
+import { PARLIAMENT_API_CONFIG, ROUTES } from "../constants/api";
+import {arraySort, filterArray} from "./array";
 
-export const fetchParliamentData = (scope, config) => (
-  axios.get(`/${scope}`, { ...PARLIAMENT_API_CONFIG, ...config })
-)
+export const fetchList = async ({ route, queryParams = {} }) => {
+  const params = {
+    ...PARLIAMENT_API_CONFIG,
+    ...queryParams
+  }
 
-export const fetchParliamentCouncillors = (config) => (
-  fetchParliamentData(PARLIAMENT_API_SCOPES.councillors, config)
-)
+  const { data } = await axios.get(route, { params })
+
+  const { sortBy, sortOrder, ...filters } = queryParams
+
+  const filteredData = filterArray({ array: data, filters })
+
+  return arraySort({ array: filteredData, sortBy, sortOrder })
+}

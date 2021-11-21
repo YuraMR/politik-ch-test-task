@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
-import {fetchParliamentCouncillors} from "../../utils/api";
-import {arraySort, filterArray} from "../../utils/array";
+import {fetchList} from "../../utils/api";
+import {ROUTES} from "../../constants/api";
 
 const initialState = {
   list: [],
@@ -11,13 +11,7 @@ const initialState = {
 export const fetchCouncillorsList = createAsyncThunk(
   'councillors/fetchList',
   async (queryParams = {}) => {
-    const { data } = await fetchParliamentCouncillors()
-
-    const { sortBy, sortOrder, ...filters } = queryParams
-
-    const filteredData = filterArray({ array: data, filters })
-
-    return arraySort({ array: filteredData, sortBy, sortOrder })
+    return await fetchList({ route: ROUTES.councillors, queryParams })
   }
 )
 

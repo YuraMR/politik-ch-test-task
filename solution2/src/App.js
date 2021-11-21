@@ -1,20 +1,13 @@
 import React from 'react';
 
-import CouncillorsList from "./components/CouncillorsList";
+import Routes from "./routes";
 
-import logo from './logo.svg';
 import './App.css';
 
-const App = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-
-        <CouncillorsList />
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <div className="App">
+    <Routes />
+  </div>
+)
 
 export default App;
