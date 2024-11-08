@@ -2,3 +2,7 @@
 
 solution2/node_modules
 solution2/yarn-error.log
+
+.nx/installation
+.nx/cache
+.nx/workspace-data
